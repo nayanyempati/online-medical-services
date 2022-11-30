@@ -1,4 +1,6 @@
-﻿using online_medical_services.Entities;
+﻿using System.Collections;
+using Microsoft.EntityFrameworkCore;
+using online_medical_services.Entities;
 using online_medical_services.Helpers;
 using online_medical_services.Interfaces;
 using online_medical_services.Models;
@@ -43,6 +45,30 @@ namespace online_medical_services.Services
                 });
                 _dbcon.SaveChanges();
                 return new ResponseMessage { Message = _messages.PRODUCT_CREATED, Status = _messages.SUCCESS };
+            }
+        }
+
+        public async Task<ArrayList> ListProducts()
+        {
+            ArrayList arrayList= new ArrayList();
+            using(Dbcon _dbcon = new Dbcon())
+            {
+                var details= await (from P in _dbcon.Products
+                              from Q in _dbcon.ProductQuantities
+                              where Q.ProductId == P.Id
+                              select new
+                              {
+                                  P.Id,
+                                  P.Brand,
+                                  P.Name,
+                                  P.Price,
+                                  Q.Quantity
+                              }).ToListAsync();
+                if (details != null)
+                {
+                    arrayList.Add(details); 
+                }
+                return arrayList;
             }
         }
     }
