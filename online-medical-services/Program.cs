@@ -1,9 +1,15 @@
+using online_medical_services.Interfaces;
+using online_medical_services.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IAccount, AccountService>();
+builder.Services.AddScoped<IProducts, ProductServices>();
+builder.Services.AddScoped<IAddressbook, AddressBookServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
