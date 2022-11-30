@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "online_medical_services"
+  "defaultProject": "online_medical_services",
+  "cli": {
+    "analytics": false
+  }
 }
