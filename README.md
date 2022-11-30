@@ -1,1 +1,0 @@
-# online-medical-services-api
